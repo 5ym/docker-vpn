@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  vpn:
+    image: hwdsl2/ipsec-vpn-server
+    ports:
+      - target: 500
+        published: 500
+        protocol: udp
+        mode: host
+      - target: 4500
+        published: 4500
+        protocol: udp
+        mode: host
+    environment:
+      - VPN_DNS_NAME=
+      - VPN_CLIENT_NAME=
+      - VPN_IKEV2_ONLY=yes
+    volumes:
+      - ./ipsec.d:/etc/ipsec.d
+    privileged: true
+    restart: always
